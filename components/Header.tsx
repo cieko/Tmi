@@ -3,10 +3,17 @@
 import { useRouter } from 'next/navigation';
 import { FC } from 'react'
 import { twMerge } from 'tailwind-merge';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import toast from 'react-hot-toast';
 
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
 import { HiHome } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
+import { FaUserAlt } from 'react-icons/fa';
+
+import useAuthModal from '@/hooks/useAuthModal';
+import { useUser } from '@/hooks/useUser';
+
 import Button from './Button';
 
 interface HeaderProps {
@@ -18,11 +25,28 @@ const Header: FC<HeaderProps> = ({
   children,
   className
 }) => {
+
+  const authModal = useAuthModal();
+
   const router = useRouter();
   // import it from next/navigation
 
-  const handleLogout = () => {
-    // Handle logout in the future
+  const supabaseClient = useSupabaseClient();
+  const {
+    user,
+  } = useUser();
+
+  const handleLogout = async () => {
+    const { error } = await supabaseClient.auth.signOut();
+
+    // Reset any playing songs
+    router.refresh();
+
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success('Logged out!');
+    }
   }
 
   return (
@@ -128,38 +152,55 @@ const Header: FC<HeaderProps> = ({
             items-center
             gap-x-4
           '>
-            <div>
-              <>
-                {/* make the empty fragment for it to implement the login, later */}
+            { user ? (
+              
+              <div className='flex gap-x-4 items-center'>
                 <Button
-                  onClick={() => {}} // for login model
-                  className='
-                    bg-transparent
-                    text-neutral-300
-                    font-medium
-                  '
-                  // adding this extra class will addup with that defined int he button component
+                  onClick={handleLogout}
+                  className='bg-white px-6 py-2'
                 >
-                  Sign up
+                  Logout
                 </Button>
-              </>
-            </div>
-            <div>
-              <>
-                {/* make the empty fragment for it to implement the login, later */}
                 <Button
-                  onClick={() => {}} // for login model
-                  className='
-                    bg-white
-                    px-6
-                    py-2
-                  '
-                  // adding this extra class will addup with that defined int he button component
+                  onClick={() => router.push('/account')}
+                  className='bg-white'
                 >
-                  Log in
+                  <FaUserAlt />
                 </Button>
+              </div>
+
+            ) : (
+              <>
+                <div>
+                  {/* make the empty fragment for it to implement the login, later */}
+                  <Button
+                    onClick={authModal.onOpen} // for login model
+                    className='
+                      bg-transparent
+                      text-neutral-300
+                      font-medium
+                    '
+                    // adding this extra class will addup with that defined int he button component
+                  >
+                    Sign up
+                  </Button>
+                </div>
+                <div>
+                  {/* make the empty fragment for it to implement the login, later */}
+                  <Button
+                    onClick={authModal.onOpen} // for login model
+                    className='
+                      bg-white
+                      px-6
+                      py-2
+                    '
+                    // adding this extra class will addup with that defined int he button component
+                  >
+                    Log in
+                  </Button>
+                </div>
               </>
-            </div>
+            ) }
         </div>
       </div>
       {children}
