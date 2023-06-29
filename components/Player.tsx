@@ -3,6 +3,7 @@
 import useGetSongById from "@/hooks/useGetSongById";
 import useLoadSongUrl from "@/hooks/useLoadSongUrl";
 import usePlayer from "@/hooks/usePlayer";
+import PlayerContent from "./PlayerContent";
 
 const Player = () => {
 
@@ -29,7 +30,14 @@ const Player = () => {
         px-4
       "
     >
-      Player
+      <PlayerContent 
+        key={songUrl}
+        song={song}
+        songUrl={songUrl}
+      />
+      {/* whenever a keys changes, it destroys the element that was using it and re-renders a new element */}
+      {/* key has been used to reset the entire hook, otherwise there will be problem loading next song */}
+      {/* the hook we use unfortunately, doesn't support dynamically and modular changes */}
     </div>
   );
 }
