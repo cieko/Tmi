@@ -73,4 +73,4 @@ const MediaItem: FC<MediaItemProps> = ({
   )
 }
 
-export default MediaItem
+export default MediaItem;
