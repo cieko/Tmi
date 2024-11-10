@@ -1,34 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Tmi/
+│
+├── frontend/                   # Frontend - React (Vite)
+│   ├── public/                 # Public assets (HTML, images, icons)
+│   │   └── index.html
+│   ├── src/                    
+│   │   ├── assets/             # Static assets (fonts, images)
+│   │   ├── components/         # React Components (UI elements)
+│   │   ├── pages/              # React Pages (Music generation, Dashboard, etc.)
+│   │   ├── services/           # API calls to backend
+│   │   ├── store/              # Redux or Context for global state management
+│   │   ├── utils/              # Utility functions
+│   │   ├── App.jsx             # Main React App
+│   │   ├── index.js            # Entry point for React (Vite)
+│   └── vite.config.js          # Vite configuration
+│
+├── backend/                    # Backend - Node + Flask (for data science)
+│   ├── api/                    
+│   │   ├── controllers/        # Logic to handle API requests
+│   │   ├── routes/             # API routes (e.g., /generate-music)
+│   │   ├── services/           # Helper services (e.g., music generation, analytics)
+│   │   ├── utils/              # Utility functions for processing
+│   │   └── app.js              # Express app entry point
+│   ├── models/                 # Machine learning models (e.g., TensorFlow/PyTorch)
+│   │   ├── model.py            # Model class for training and inference
+│   │   └── trainer.py          # Code for training the model
+│   ├── data/                   
+│   │   ├── datasets/           # Datasets used for training (e.g., MIDI files)
+│   │   └── preprocess/         # Data preprocessing scripts
+│   ├── flask-app/              # Flask-based analytics app
+│   │   ├── __init__.py
+│   │   ├── routes.py           # Routes for data visualization and analytics
+│   │   └── models/             # Models for analytics (e.g., time series analysis)
+│   ├── tests/                  # Unit and integration tests for the backend
+│   │   ├── controllers/        # Test controllers (API)
+│   │   └── services/           # Test services (Music generation)
+│   ├── config/                 # Configuration files (e.g., .env, logging)
+│   └── requirements.txt        # Python dependencies
+│
+├── docker/                     # Docker-related files for both frontend and backend
+│   ├── Dockerfile.frontend     # Dockerfile for React app
+│   ├── Dockerfile.backend      # Dockerfile for Node.js backend
+│   ├── docker-compose.yml      # Docker Compose file to run the full stack
+│
+├── scripts/                    # Miscellaneous scripts (e.g., data scraping, batch jobs)
+│   ├── data_preprocessing.py   # Data preprocessing scripts
+│   ├── train_model.py          # Script to train models
+│
+├── logs/                       # Log files
+├── .gitignore                  # Git ignore file
+└── README.md                   # Project documentation
