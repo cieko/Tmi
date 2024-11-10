@@ -1,3 +1,5 @@
+
+```       
 Tmi/
 │
 ├── frontend/                   # Frontend - React (Vite)
@@ -49,3 +51,4 @@ Tmi/
 ├── logs/                       # Log files
 ├── .gitignore                  # Git ignore file
 └── README.md                   # Project documentation
+```   
